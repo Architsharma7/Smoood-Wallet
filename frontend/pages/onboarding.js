@@ -3,6 +3,7 @@ import { useAuth } from "../auth-context/auth";
 import { EthersAdapter } from "@safe-global/protocol-kit";
 import { ethers } from "ethers";
 import { SafeFactory } from "@safe-global/protocol-kit";
+import SafeApiKit from "@safe-global/api-kit";
 
 const Onboarding = () => {
   const {
@@ -22,13 +23,13 @@ const Onboarding = () => {
     }
   }, []);
 
-  useEffect(()=> {
-    if(provider){
-      setIsLoggedIn(true)
+  useEffect(() => {
+    if (provider) {
+      setIsLoggedIn(true);
     }
-  },[provider])
+  }, [provider]);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = async () => {
     try {
@@ -42,7 +43,9 @@ const Onboarding = () => {
       console.log("SIGN IN RESPONSE: ", response);
 
       // setsafeAuthSigninResponse(response);
-      const provider = new ethers.providers.Web3Provider(safeAuth.getProvider());
+      const provider = new ethers.providers.Web3Provider(
+        safeAuth.getProvider()
+      );
       setProvider(provider);
       const signer = provider.getSigner();
       setSigner(signer);
@@ -67,6 +70,11 @@ const Onboarding = () => {
       ethAdapter: ethAdapter,
     });
 
+    const safeService = new SafeApiKit({
+      txServiceUrl: "https://safe-transaction-goerli.safe.global",
+      ethAdapter,
+    });
+
     const owners = [`${await signer.getAddress()}`];
     const threshold = 1;
 
@@ -74,11 +82,10 @@ const Onboarding = () => {
       owners,
       threshold,
     };
-    console.log(safeAccountConfig)
+    console.log(safeAccountConfig);
 
     /// Will it have gas fees to deploy this safe tx
     const safeSdk = await safeFactory.deploySafe({ safeAccountConfig });
-  
 
     console.log("Creating and deploying the new safe");
 
@@ -86,7 +93,12 @@ const Onboarding = () => {
     const newSafeAddress = safeSdk.getAddress();
 
     console.log(newSafeAddress);
+
     /// Also check about storing the gnosisSafe address somewhere
+    const safes = await safeService.getSafesByOwner(
+      await safeAuth.getProvider()
+    );
+    console.log(safes);
   };
 
   return (
@@ -98,13 +110,18 @@ const Onboarding = () => {
               Smoood Wallet
             </p>
             <p className="text-white mt-10 text-center">A Mom's wallet</p>
-           {!isLoggedIn ? (<button
-              onClick={login}
-              className="mt-40 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500"
-            >
-              Sign In / Sign Up
-            </button>) :( 
-              <button  className="mt-40 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500" onClick={createSafeWallet}>
+            {!isLoggedIn ? (
+              <button
+                onClick={login}
+                className="mt-40 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500"
+              >
+                Sign In / Sign Up
+              </button>
+            ) : (
+              <button
+                className="mt-40 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500"
+                onClick={createSafeWallet}
+              >
                 createSafeWallet
               </button>
             )}

@@ -9,10 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.5.5",
+    "@1inch/fusion-sdk": "^0.1.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@1inch/fusion-sdk": "^0.1.1",
     "@safe-global/api-kit": "^1.0.1",
     "@safe-global/auth-kit": "0.1.0-alpha.2",
     "@safe-global/protocol-kit": "^0.1.1",
@@ -23,6 +22,7 @@
     "@web3auth/modal": "^5.1.1",
     "@web3auth/openlogin-adapter": "^5.1.1",
     "copy-to-clipboard": "^3.3.3",
+    "dotenv": "^16.0.3",
     "ethers": "5.7",
     "framer-motion": "^10.12.2",
     "next": "13.3.0",

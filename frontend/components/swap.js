@@ -63,6 +63,22 @@ const swap = async (userAddress, signer) => {
       })
       .then(console.log);
   };
+
+  const placeFusionOrder = () => {
+    const order = new FusionOrder(
+      {
+        makerAsset: fromAddress,
+        takerAsset: toAddress,
+        makingAmount: amount,
+        takingAmount: takerAmount,
+        maker: userAddress,
+      },
+      salt,
+      suffix
+    );
+
+    order.build();
+  };
 };
 
 export default swap;

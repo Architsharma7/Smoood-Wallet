@@ -51,13 +51,12 @@ export function AuthProvider({ children }) {
   }, [router, currentUser, safeAuthKit]);
 
   const intializeAuthKit = async () => {
+    console.log(process.env.NEXT_PUBLIC_RPC_URL);
     const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
       chainId: "0x5",
       authProviderConfig: {
-        rpcTarget:
-          "https://eth-goerli.g.alchemy.com/v2/bZFiL-IFAMe4QAh9Q30gDQ7m1vxEss4u", // Add your RPC e.g. https://goerli.infura.io/v3/<your project id>
-        clientId:
-          "BI2SkFVRuQr8TqLoicvYRQivxyw8HL7FtfKok4VQXKhQ4V38pop3yLJhFQEphRfee3bGNG5u_wqfwePZsijnpcg", // Add your client id. Get it from the Web3Auth dashboard
+        rpcTarget: process.env.NEXT_PUBLIC_RPC_URL, // Add your RPC e.g. https://goerli.infura.io/v3/<your project id>
+        clientId: process.env.NEXT_PUBLIC_CLIENT_ID, // Add your client id. Get it from the Web3Auth dashboard
         network: "testnet" | "mainnet", // The network to use for the Web3Auth modal. Use 'testnet' while developing and 'mainnet' for production use
         theme: "dark", // The theme to use for the Web3Auth modal
         modalConfig: {
