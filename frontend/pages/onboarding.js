@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../auth-context/auth";
 import { EthersAdapter } from "@safe-global/protocol-kit";
 import { ethers } from "ethers";
@@ -23,6 +23,14 @@ const Onboarding = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (provider) {
+      setIsLoggedIn(true);
+    }
+  }, [provider]);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const login = async () => {
     try {
       console.log("Loginigg in ");
@@ -34,8 +42,10 @@ const Onboarding = () => {
       const response = await safeAuth.signIn();
       console.log("SIGN IN RESPONSE: ", response);
 
-      setsafeAuthSigninResponse(response);
-      const provider = new ethers.providers.Web3Provider(eoaAddress);
+      // setsafeAuthSigninResponse(response);
+      const provider = new ethers.providers.Web3Provider(
+        safeAuth.getProvider()
+      );
       setProvider(provider);
       const signer = provider.getSigner();
       setSigner(signer);
@@ -65,13 +75,14 @@ const Onboarding = () => {
       ethAdapter,
     });
 
-    const owners = [`${await safeAuth.getProvider()}`];
+    const owners = [`${await signer.getAddress()}`];
     const threshold = 1;
 
     const safeAccountConfig = {
       owners,
       threshold,
     };
+    console.log(safeAccountConfig);
 
     /// Will it have gas fees to deploy this safe tx
     const safeSdk = await safeFactory.deploySafe({ safeAccountConfig });
@@ -99,12 +110,21 @@ const Onboarding = () => {
               Smoood Wallet
             </p>
             <p className="text-white mt-10 text-center">A Mom's wallet</p>
-            <button
-              onClick={login}
-              className="mt-40 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500"
-            >
-              Sign In / Sign Up
-            </button>
+            {!isLoggedIn ? (
+              <button
+                onClick={login}
+                className="mt-40 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500"
+              >
+                Sign In / Sign Up
+              </button>
+            ) : (
+              <button
+                className="mt-40 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500"
+                onClick={createSafeWallet}
+              >
+                createSafeWallet
+              </button>
+            )}
           </div>
         </div>
       </div>
