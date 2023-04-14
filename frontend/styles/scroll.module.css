@@ -1,0 +1,18 @@
+.overlay {
+    position: fixed;
+    overflow-y: scroll;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: 70px;
+}
+
+#second-half {
+    width: 100%;
+    padding: 20px;
+}
+
+.firsthalf{
+    overflow: hidden;
+}
