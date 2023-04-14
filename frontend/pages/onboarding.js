@@ -3,6 +3,7 @@ import { useAuth } from "../auth-context/auth";
 import { EthersAdapter } from "@safe-global/protocol-kit";
 import { ethers } from "ethers";
 import { SafeFactory } from "@safe-global/protocol-kit";
+import SafeApiKit from "@safe-global/api-kit";
 
 const Onboarding = () => {
   const {
@@ -59,7 +60,12 @@ const Onboarding = () => {
       ethAdapter: ethAdapter,
     });
 
-    const owners = [`${currentUser}`];
+    const safeService = new SafeApiKit({
+      txServiceUrl: "https://safe-transaction-goerli.safe.global",
+      ethAdapter,
+    });
+
+    const owners = [`${await safeAuth.getProvider()}`];
     const threshold = 1;
 
     const safeAccountConfig = {
@@ -76,7 +82,12 @@ const Onboarding = () => {
     const newSafeAddress = safeSdk.getAddress();
 
     console.log(newSafeAddress);
+
     /// Also check about storing the gnosisSafe address somewhere
+    const safes = await safeService.getSafesByOwner(
+      await safeAuth.getProvider()
+    );
+    console.log(safes);
   };
 
   return (
