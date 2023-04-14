@@ -2,9 +2,10 @@ import transakSDK from "@transak/transak-sdk";
 
 import React from "react";
 
+//https://docs.transak.com/docs/visual-customization-and-data-display-options
 export const transakRamp = (userAddress) => {
   let transak = new transakSDK({
-    apiKey: "0bfa1e08-6fb5-48e7-a337-d008d751c771", // (Required)
+    apiKey: process.env.NEXT_PUBLIC_TRANSAK_API_KEY, // (Required)
     environment: "STAGING", // (Required)
     // widgetHeight: "500px",
     // widgetWidth: "350px",
