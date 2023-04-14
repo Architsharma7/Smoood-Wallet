@@ -33,7 +33,7 @@ const ScanQR = () => {
 
       console.log(finalData);
       setqrCodeData(finalData);
-      
+
     });
     qrScanner.start();
   };
@@ -41,7 +41,7 @@ const ScanQR = () => {
   return (
     <div className="h-screen w-screen flex flex-col">
       <video id="v" className="object-cover h-[80%] w-full"></video>
-      <div className="bg-white h-[20%] rounded-3xl">
+      <div className="bg-white h-[20%] rounded-t-3xl">
         <div className="w-full flex items-center justify-between pt-3 px-3">
           <hr className="w-full bg-gray-400" />
           <p className="text-base font-medium leading-4 px-3 text-gray-400">
