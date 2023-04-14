@@ -30,16 +30,15 @@ export function AuthProvider({ children }) {
       if (!currentUser && !publicPaths.includes(router.asPath.split("?")[0])) {
         setAuthorized(false);
         // dispatch(setRedirectLink({ goto: router.asPath }));
-        void router.push({
-          pathname: "/onboarding",
-        });
+        // void router.push({
+        //   pathname: "/onboarding",
+        // });
       } else {
         setAuthorized(true);
       }
     };
 
     authCheck();
-
     const preventAccess = () => setAuthorized(false);
 
     router.events.on("routeChangeStart", preventAccess);
@@ -56,11 +55,11 @@ export function AuthProvider({ children }) {
       chainId: "0x5",
       authProviderConfig: {
         rpcTarget:
-          "https://polygon-mumbai.g.alchemy.com/v2/bZFiL-IFAMe4QAh9Q30gDQ7m1vxEss4u", // Add your RPC e.g. https://goerli.infura.io/v3/<your project id>
+          "https://eth-goerli.g.alchemy.com/v2/bZFiL-IFAMe4QAh9Q30gDQ7m1vxEss4u", // Add your RPC e.g. https://goerli.infura.io/v3/<your project id>
         clientId:
           "BI2SkFVRuQr8TqLoicvYRQivxyw8HL7FtfKok4VQXKhQ4V38pop3yLJhFQEphRfee3bGNG5u_wqfwePZsijnpcg", // Add your client id. Get it from the Web3Auth dashboard
         network: "testnet" | "mainnet", // The network to use for the Web3Auth modal. Use 'testnet' while developing and 'mainnet' for production use
-        theme: "light" | "dark", // The theme to use for the Web3Auth modal
+        theme: "dark", // The theme to use for the Web3Auth modal
         modalConfig: {
           // The modal config is  optional and it's used to customize the Web3Auth modal
           // Check the Web3Auth documentation for more info: https://web3auth.io/docs/sdk/web/modal/whitelabel#initmodal
@@ -99,6 +98,10 @@ export function AuthProvider({ children }) {
 
       console.log(provider, signer);
       setAuthorized(true);
+
+      return true;
+    } else {
+      return false;
     }
   };
 
@@ -109,8 +112,10 @@ export function AuthProvider({ children }) {
   const value = {
     safeAuthKit,
     intializeAuthKit,
+    setProvider,
     provider,
     signer,
+    setSigner,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

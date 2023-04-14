@@ -1,14 +1,34 @@
 import React from "react";
 import { MdOutlineNotificationsActive } from "react-icons/md";
-import { AiOutlineMenu } from "react-icons/ai";
+import { SiProtocolsdotio } from "react-icons/si";
 import { useState } from "react";
 import copy from "copy-to-clipboard";
 import styles from "../styles/scroll.module.css";
+import { useAuth } from "../auth-context/auth";
+import { useRouter } from "next/router";
 
 const Firsthalf = () => {
   const copyToClipboard = () => {
     copy(copyText);
     alert(`You have copied "${copyText}"`);
+  };
+
+  const router = useRouter();
+
+  const { safeAuthKit: safeAuth,setProvider,setSigner} = useAuth();
+
+  const logout = async () => {
+    console.log(safeAuth);
+    if (!safeAuth) {
+      console.log("SafeAuthNot found");
+      return;
+    }
+
+    await safeAuth.signOut();
+
+    setProvider(null);
+    // safeAuthSigninResponse(null);
+    router.push("/onboarding")
   };
 
   return (
@@ -22,7 +42,7 @@ const Firsthalf = () => {
                 <p className="text-white">Archit.eth</p>
                 <p className="text-white mt-1">0x8d7....1D37</p>
               </div>
-              <AiOutlineMenu className="text-3xl" />
+              <SiProtocolsdotio className="text-3xl" onClick={logout}/>
             </div>
             <div className="mt-14 mx-auto flex flex-col justify-center text-center">
               <p className="text-gray-400">Current Balance</p>
