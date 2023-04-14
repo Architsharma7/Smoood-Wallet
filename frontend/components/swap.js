@@ -10,7 +10,7 @@ import {
 // '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
 // '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
 
-const swap = async (fromToken, toToken, amount, userAddress, signer) => {
+const swap = async (userAddress, signer) => {
   const [fromAddress, setFromAddress] = useState();
   const [toAddress, setToAddress] = useState();
   const [amount, setAmount] = useState();
@@ -37,7 +37,17 @@ const swap = async (fromToken, toToken, amount, userAddress, signer) => {
     //   const quote = await sdk.getQuote(params);
     //   console.log(quote);
   };
-  //   console.log(orders);
+
+  const getOrderHistory = async () => {
+    const orders = await sdk.getOrdersByMaker({
+      page: 1,
+      limit: 2,
+      address: "0xfa80cd9b3becc0b4403b0f421384724f2810775f",
+    });
+
+    console.log(orders);
+  };
+
   const placeNewOrder = () => {
     sdk
       .placeOrder({
@@ -52,16 +62,6 @@ const swap = async (fromToken, toToken, amount, userAddress, signer) => {
         // },
       })
       .then(console.log);
-  };
-
-  const getOrderHistory = async () => {
-    const orders = await sdk.getOrdersByMaker({
-      page: 1,
-      limit: 2,
-      address: "0xfa80cd9b3becc0b4403b0f421384724f2810775f",
-    });
-
-    console.log(orders);
   };
 };
 

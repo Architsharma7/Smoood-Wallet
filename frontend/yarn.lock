@@ -385,7 +385,7 @@
     elliptic "6.5.4"
     hash.js "1.1.7"
 
-"@ethersproject/solidity@5.7.0":
+"@ethersproject/solidity@5.7.0", "@ethersproject/solidity@^5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/solidity/-/solidity-5.7.0.tgz#5e9c911d8a2acce2a5ebb48a5e2e0af20b631cb8"
   integrity sha512-HmabMd2Dt/raavyaGukF4XxizWKhKQ24DoLtdNbBmNKUOPqwjsKQSdV9GQtj9CBEea9DlzETlVER1gYeXXBGaA==
@@ -674,6 +674,15 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
   integrity sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==
 
+"@safe-global/api-kit@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@safe-global/api-kit/-/api-kit-1.0.1.tgz#7176024cfeacccbf5a383e49f5b37d25cca97efc"
+  integrity sha512-pEytEt4TdiCYAIvdgRRvgUHAPIPh6IDDmsib8qCbika4eMJWgemHb6NsMfltP3SMEdgWSNWFKHiE5GRoZ5sVLw==
+  dependencies:
+    "@ethersproject/abstract-signer" "^5.7.0"
+    "@safe-global/safe-core-sdk-types" "^1.10.1"
+    node-fetch "^2.6.6"
+
 "@safe-global/auth-kit@0.1.0-alpha.2":
   version "0.1.0-alpha.2"
   resolved "https://registry.yarnpkg.com/@safe-global/auth-kit/-/auth-kit-0.1.0-alpha.2.tgz#6d1dd4b7993ae5d0163cb6b3466d6486b5e88a92"
@@ -685,7 +694,21 @@
     ethers "^5.7.2"
     events "^3.3.0"
 
-"@safe-global/safe-core-sdk-types@^1.9.0":
+"@safe-global/protocol-kit@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@safe-global/protocol-kit/-/protocol-kit-0.1.1.tgz#f971975b250dd945113037ecdd710358979be24d"
+  integrity sha512-lRTeO/+WyfIacTYclaGRLPsCnnZKgzCtgfZuVMwhM6kX/8FET+rDiM26FVucVUFBVwCml8ogvJlrqKB8bCkAgQ==
+  dependencies:
+    "@ethersproject/bignumber" "^5.7.0"
+    "@ethersproject/solidity" "^5.7.0"
+    "@safe-global/safe-deployments" "^1.20.2"
+    ethereumjs-util "^7.1.5"
+    semver "^7.3.8"
+    web3 "^1.8.1"
+    web3-core "^1.8.1"
+    web3-utils "^1.8.1"
+
+"@safe-global/safe-core-sdk-types@^1.10.1", "@safe-global/safe-core-sdk-types@^1.9.0":
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/@safe-global/safe-core-sdk-types/-/safe-core-sdk-types-1.10.1.tgz#94331b982671d2f2b8cc23114c58baf63d460c81"
   integrity sha512-BKvuYTLOlY16Rq6qCXglmnL6KxInDuXMFqZMaCzwDKiEh+uoHu3xCumG5tVtWOkCgBF4XEZXMqwZUiLcon7IsA==
@@ -712,7 +735,7 @@
   dependencies:
     semver "^7.3.7"
 
-"@safe-global/safe-ethers-lib@^1.9.1":
+"@safe-global/safe-ethers-lib@^1.9.1", "@safe-global/safe-ethers-lib@^1.9.2":
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/@safe-global/safe-ethers-lib/-/safe-ethers-lib-1.9.2.tgz#e99e565d832e5b588c661b59936caa78aa1e3952"
   integrity sha512-x8Lq6ViRHW9UC+SAF+VOZ8Lt7jXMhbNS/+WYhSdAKhM+SHwkaaDi03pyZgm4FK0C3Zah7vryU3dSDR/CwEtqhQ==
@@ -725,6 +748,15 @@
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@safe-global/safe-service-client/-/safe-service-client-1.5.2.tgz#78a3453c3ebbc07ded8f2163e8d5d4644d379e5a"
   integrity sha512-W5F4KfTO8iVIy/2GmbFFXyZ6d4Q00JKdWDbf/jSRJajvx/EL6Ix/lkCl/VuBgssNh4yTLZBHIuQDlIZgmnyVgA==
+  dependencies:
+    "@ethersproject/abstract-signer" "^5.7.0"
+    "@safe-global/safe-core-sdk-types" "^1.9.0"
+    node-fetch "^2.6.6"
+
+"@safe-global/safe-service-client@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@safe-global/safe-service-client/-/safe-service-client-2.0.0.tgz#80b0568c10c5831b4c35062643ed736f1fc269cc"
+  integrity sha512-YP9yrfSePVuytEXOlf74Fh1MYwpPUAqgoT5GEM2iF3mydD07P+AdjDa1BPzqeqkO8cktcaX4o3Y5vFB5/Sqnqw==
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@safe-global/safe-core-sdk-types" "^1.9.0"
