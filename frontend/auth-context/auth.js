@@ -17,7 +17,9 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [safeAuthKit, setSafeAuthKit] = useState();
 
-  const userInfo = useRef();
+  const [provider, setProvider] = useState();
+  const [signer, setSigner] = useState();
+
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
 
