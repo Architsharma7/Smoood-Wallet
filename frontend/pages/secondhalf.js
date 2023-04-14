@@ -2,9 +2,10 @@ import React from "react";
 import styles from "../styles/scroll.module.css";
 import { BsQrCodeScan } from "react-icons/bs";
 import { useRouter } from "next/router";
+import { transakRamp } from "../components/transak";
 
 const Secondhalf = () => {
-    const router = useRouter();
+  const router = useRouter();
 
   return (
     <div className={styles.overlay} aria-hidden="false">
@@ -31,12 +32,20 @@ const Secondhalf = () => {
               </button>
               {/* <p className="text-black text-center text-2xl mt-1">Pay</p> */}
             </div>
-            <button className="px-7 border border-black rounded-xl h-16">
+            {/* <a href=`https://global-stg.transak.com?apiKey=0bfa1e08-6fb5-48e7-a337-d008d751c771&walletAddress=${userAddress}&defaultCryptoCurrency=ETH&fiatCurrency=INR`> */}
+            <button
+              className="px-7 border border-black rounded-xl h-16"
+              onClick={() => transakRamp()} // need to pass the userAddress
+            >
               <p className="text-black">ADD</p>
             </button>
+            {/* </a> */}
           </div>
           <div className="grid mt-10 grid-flow-col grid-cols-2 mx-3 gap-x-4">
-            <button className="border border-black rounded-2xl text-black py-4" onClick={() => router.push("./history")}>
+            <button
+              className="border border-black rounded-2xl text-black py-4"
+              onClick={() => router.push("./history")}
+            >
               History
             </button>
             <button className="border border-black rounded-2xl text-black py-4">
@@ -79,7 +88,7 @@ const Secondhalf = () => {
                   <p className="text-black">0x8d7....1D37</p>
                   <p className="text-black">14:36, 12 April 2023</p>
                 </div>
-                <hr className="mt-2 mb-2"/>
+                <hr className="mt-2 mb-2" />
                 <div className="flex flex-row justify-between">
                   <p className="text-black text-2xl">-$323.7</p>
                   <div className="px-3 py-1 bg-slate-100 rounded-lg">
@@ -89,8 +98,6 @@ const Secondhalf = () => {
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
