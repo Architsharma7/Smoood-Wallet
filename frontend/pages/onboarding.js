@@ -1,13 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../auth-context/auth";
+import {
+  SafeAuthKit,
+  SafeAuthProviderType,
+  SafeAuthEvents,
+} from "@safe-global/auth-kit";
 
 const Onboarding = () => {
-  const { safeAuthKit: safeAuth, intializeAuthKit } = useAuth();
+  const {
+    safeAuthKit: safeAuth,
+    intializeAuthKit,
+    provider,
+    signer,
+  } = useAuth();
+  // const [safeAuth, setSafeAuth] = useState();
+  // const [provider, setProvider] = useState();
+  // const [safeAuthSigninResponse, setsafeAuthSigninResponse] = useState();
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     if (!safeAuth) {
       intializeAuthKit();
-      console.log("Intializing Auth Kit");
     }
   }, []);
 

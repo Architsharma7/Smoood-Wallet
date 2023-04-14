@@ -7,6 +7,7 @@ import {
   SafeAuthEvents,
 } from "@safe-global/auth-kit";
 import { publicPaths } from "../constants/publicpath";
+import { ethers } from "ethers";
 
 const AuthContext = createContext();
 
@@ -30,7 +31,7 @@ export function AuthProvider({ children }) {
         setAuthorized(false);
         // dispatch(setRedirectLink({ goto: router.asPath }));
         void router.push({
-          pathname: "/hello",
+          pathname: "/onboarding",
         });
       } else {
         setAuthorized(true);
@@ -48,10 +49,10 @@ export function AuthProvider({ children }) {
       router.events.off("routeChangeStart", preventAccess);
       router.events.off("routeChangeComplete", authCheck);
     };
-  }, [router, router.events, currentUser]);
+  }, [router, currentUser, safeAuthKit]);
 
   const intializeAuthKit = async () => {
-    const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType, {
+    const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
       chainId: "0x5",
       authProviderConfig: {
         rpcTarget:
@@ -77,58 +78,39 @@ export function AuthProvider({ children }) {
 
     setSafeAuthKit(safeAuthKit);
     console.log(safeAuthKit);
+    return safeAuthKit;
   };
 
   const getUser = async () => {
+    let safeAuth;
     if (!safeAuthKit) {
-      await intializeAuthKit();
+      safeAuth = await intializeAuthKit();
     }
-    const eoaAddress = safeAuthKit.getProvider();
+    const eoaAddress = safeAuth.getProvider();
+    console.log(eoaAddress);
     if (eoaAddress) {
       setCurrentUser(eoaAddress);
+
+      const provider = new ethers.providers.Web3Provider(eoaAddress);
+      setProvider(provider);
+
+      const signer = provider.getSigner();
+      setSigner(signer);
+
+      console.log(provider, signer);
       setAuthorized(true);
     }
   };
 
   useEffect(() => {
-    (async () => {
-      const safeAuthKit = await SafeAuthKit.init(
-        SafeAuthProviderType.Web3Auth,
-        {
-          chainId: "0x5",
-          authProviderConfig: {
-            rpcTarget:
-              "https://polygon-mumbai.g.alchemy.com/v2/bZFiL-IFAMe4QAh9Q30gDQ7m1vxEss4u", // Add your RPC e.g. https://goerli.infura.io/v3/<your project id>
-            clientId:
-              "BI2SkFVRuQr8TqLoicvYRQivxyw8HL7FtfKok4VQXKhQ4V38pop3yLJhFQEphRfee3bGNG5u_wqfwePZsijnpcg", // Add your client id. Get it from the Web3Auth dashboard
-            network: "testnet" | "mainnet", // The network to use for the Web3Auth modal. Use 'testnet' while developing and 'mainnet' for production use
-            theme: "light" | "dark", // The theme to use for the Web3Auth modal
-            modalConfig: {
-              // The modal config is  optional and it's used to customize the Web3Auth modal
-              // Check the Web3Auth documentation for more info: https://web3auth.io/docs/sdk/web/modal/whitelabel#initmodal
-            },
-          },
-        }
-      );
-
-      safeAuthKit.subscribe(SafeAuthEvents.SIGNED_IN, () => {
-        console.log("User is authenticated");
-      });
-
-      safeAuthKit.subscribe(SafeAuthEvents.SIGNED_OUT, () => {
-        console.log("User is not authenticated");
-      });
-
-      setSafeAuthKit(safeAuthKit);
-      console.log(safeAuthKit);
-    })();
-
-    // intializeAuthKit();
+    getUser();
   }, []);
 
   const value = {
     safeAuthKit,
     intializeAuthKit,
+    provider,
+    signer,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
