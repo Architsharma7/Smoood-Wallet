@@ -8,10 +8,17 @@ import {
 } from "../components/safeRelay";
 import { getUserSafe } from "../components/safeMethods";
 import { ethers, providers } from "ethers";
+import { addRecord } from "../components/firebaseMethods";
 
 const Finalpayment = () => {
-  const { payData, signer,provider, safeAddress, setSafeAddress, currentAddress } =
-    useAuth();
+  const {
+    payData,
+    signer,
+    provider,
+    safeAddress,
+    setSafeAddress,
+    currentAddress,
+  } = useAuth();
 
   const getSafeAddress = async () => {
     const address = await getUserSafe(signer);
@@ -39,12 +46,12 @@ const Finalpayment = () => {
         console.log("PayData is not Correct");
         return;
       }
-      console.log(safeAddress)
+      console.log(safeAddress);
 
       const safeSDK = await intializeSDK(signer, safeAddress);
       const amount = ethers.utils.parseEther(payData.amount);
 
-    //   console.log(amount);
+      //   console.log(amount);
 
       const encodedTxData = await prepareSendNativeTransactionData(
         payData.address,
@@ -52,7 +59,7 @@ const Finalpayment = () => {
         safeSDK
       );
 
-      console.log(encodedTxData)
+      console.log(encodedTxData);
 
       const txResponse = await sendTransaction1Balance(
         safeAddress,
@@ -75,12 +82,12 @@ const Finalpayment = () => {
         console.log("PayData is not Correct");
         return;
       }
-      console.log(safeAddress)
+      console.log(safeAddress);
 
       const safeSDK = await intializeSDK(signer, safeAddress);
       const amount = ethers.utils.parseEther(payData.amount);
 
-    //   console.log(amount);
+      //   console.log(amount);
 
       const encodedTxData = await prepareSendNativeTransactionData(
         payData.address,
@@ -88,7 +95,7 @@ const Finalpayment = () => {
         safeSDK
       );
 
-      console.log(encodedTxData)
+      console.log(encodedTxData);
 
       const txResponse = await sendTransactionSyncFee(
         safeAddress,
@@ -96,12 +103,25 @@ const Finalpayment = () => {
       );
 
       console.log(txResponse);
+
+      storeTxData(txResponse.taskId);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const storeTxData = () => {};
+  const storeTxData = async (taskId) => {
+    // we are storing the taskID , rn , may need to change to txID
+    const res = await addRecord(
+      safeAddress,
+      taskId,
+      payData.amount,
+      payData.message,
+      payData.tag
+    );
+
+    console.log(res);
+  };
 
   return (
     <div className="w-screen bg-white h-screen">
@@ -140,7 +160,10 @@ const Finalpayment = () => {
             </div>
           </div>
           <div className="mt-20 flex justify-center">
-            <button onClick={()=>inititateTransactionNative() } className="text-white text-center bg-emerald-500 px-14 py-3 rounded-xl border text-xl hover:scale-110 duration-300 hover:bg-white hover:border-emerald-500 hover:text-emerald-500">
+            <button
+              onClick={() => inititateTransactionNativeGasless()}
+              className="text-white text-center bg-emerald-500 px-14 py-3 rounded-xl border text-xl hover:scale-110 duration-300 hover:bg-white hover:border-emerald-500 hover:text-emerald-500"
+            >
               Pay
             </button>
           </div>

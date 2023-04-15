@@ -25,6 +25,8 @@ export const addRecord = async (scwAddress, TxId, Amount, Message, Tag) => {
   };
   const docRef = await setDoc(doc(db, `${scwAddress}`, TxId), data);
   console.log(docRef.id);
+
+  return docRef.id;
 };
 
 export const getAllRecords = async (scwAddress) => {
