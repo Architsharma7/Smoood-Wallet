@@ -4,6 +4,7 @@ import PinInput from "react-pin-input";
 
 const Recoverymethod = () => {
   const [recoveryFormData, setrecoveryFormData] = useState({});
+
   return (
     <div className="w-screen h-screen bg-white">
       <div className="flex flex-col justify-center mx-4">
