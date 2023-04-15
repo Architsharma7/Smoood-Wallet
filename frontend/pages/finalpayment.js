@@ -4,6 +4,7 @@ import {
   intializeSDK,
   prepareSendNativeTransactionData,
   sendTransaction1Balance,
+  sendTransactionSyncFee,
 } from "../components/safeRelay";
 import { getUserSafe } from "../components/safeMethods";
 import { ethers } from "ethers";
@@ -25,58 +26,68 @@ const Finalpayment = () => {
     console.log(safeAddress);
   }, [safeAddress]);
 
+  /// By 1Balance Method
   const inititateTransactionNativeGasless = async () => {
-    if (!safeAddress && !signer) {
-      console.log("Safe SDK Address && signer not found ");
-      return;
+    try {
+      if (!safeAddress && !signer) {
+        console.log("Safe SDK Address && signer not found ");
+        return;
+      }
+      if (!payData.address && !payData.amount) {
+        console.log("PayData is not Correct");
+        return;
+      }
+
+      const safeSDK = await intializeSDK(signer, safeAddress);
+      const amount = ethers.utils.parseEther(payData.amount);
+
+      console.log(amount);
+      const encodedTxData = await prepareSendNativeTransactionData(
+        payData.address,
+        amount,
+        safeSDK
+      );
+
+      const txResponse = await sendTransaction1Balance(
+        safeAddress,
+        encodedTxData
+      );
+      console.log(txResponse);
+    } catch (error) {
+      console.log(error);
     }
-    if (!payData.address && !payData.amount) {
-      console.log("PayData is not Correct");
-      return;
-    }
-
-    const safeSDK = await intializeSDK(signer, safeAddress);
-    const amount = ethers.utils.parseEther(payData.amount);
-
-    console.log(amount);
-    const encodedTxData = await prepareSendNativeTransactionData(
-      payData.address,
-      amount,
-      safeSDK
-    );
-
-    const txResponse = await sendTransaction1Balance(
-      safeAddress,
-      encodedTxData
-    );
-    console.log(txResponse);
   };
 
+  /// By SyncFee Method
   const inititateTransactionNative = async () => {
-    if (!safeAddress && !signer) {
-      console.log("Safe SDK Address && signer not found ");
-      return;
+    try {
+      if (!safeAddress && !signer) {
+        console.log("Safe SDK Address && signer not found ");
+        return;
+      }
+      if (!payData.address && !payData.amount) {
+        console.log("PayData is not Correct");
+        return;
+      }
+
+      const safeSDK = await intializeSDK(signer, safeAddress);
+      const amount = ethers.utils.parseEther(payData.amount);
+
+      console.log(amount);
+      const encodedTxData = await prepareSendNativeTransactionData(
+        payData.address,
+        amount,
+        safeSDK
+      );
+
+      const txResponse = await sendTransactionSyncFee(
+        safeAddress,
+        encodedTxData
+      );
+      console.log(txResponse);
+    } catch (error) {
+      console.log(error);
     }
-    if (!payData.address && !payData.amount) {
-      console.log("PayData is not Correct");
-      return;
-    }
-
-    const safeSDK = await intializeSDK(signer, safeAddress);
-    const amount = ethers.utils.parseEther(payData.amount);
-
-    console.log(amount);
-    const encodedTxData = await prepareSendNativeTransactionData(
-      payData.address,
-      amount,
-      safeSDK
-    );
-
-    const txResponse = await sendTransaction1Balance(
-      safeAddress,
-      encodedTxData
-    );
-    console.log(txResponse);
   };
 
   const storeTxData = () => {};
