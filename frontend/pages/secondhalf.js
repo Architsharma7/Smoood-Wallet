@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/scroll.module.css";
 import { BsQrCodeScan } from "react-icons/bs";
 import { useRouter } from "next/router";
-import { transakRamp } from "../components/transak";
+// import { transakRamp } from "../components/transak";
 // import { getAllTokens } from "../components/airstackMethods";
 // import { addRecord } from "../components/firebase";
 
@@ -42,7 +42,7 @@ const Secondhalf = () => {
             {/* <a href=`https://global-stg.transak.com?apiKey=0bfa1e08-6fb5-48e7-a337-d008d751c771&walletAddress=${userAddress}&defaultCryptoCurrency=ETH&fiatCurrency=INR`> */}
             <button
               className="px-7 border border-black rounded-xl h-16"
-              onClick={() => transakRamp()} // need to pass the userAddress
+              onClick={() => router.push("/onramp")} // need to pass the userAddress
             >
               <p className="text-black">ADD</p>
             </button>
