@@ -6,6 +6,8 @@ import { SafeFactory } from "@safe-global/protocol-kit";
 import SafeApiKit from "@safe-global/api-kit";
 // import { Audio } from "react-loader-spinner";
 import Confetti from "react-confetti";
+import { SiProtocolsdotio } from "react-icons/si";
+import { useRouter } from "next/router";
 
 const Onboarding = ({ type, color }) => {
   const {
@@ -39,6 +41,8 @@ const Onboarding = ({ type, color }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [safeSetupComplete, setsafeSetupComplete] = useState(false);
   const [isLoading, setisLoading] = useState(false);
+
+  const router = useRouter();
 
   const login = async () => {
     try {
@@ -77,7 +81,6 @@ const Onboarding = ({ type, color }) => {
         console.log("SignIn/ SignUp");
         return;
       }
-
       const ethAdapter = new EthersAdapter({
         ethers,
         signerOrProvider: signer,
@@ -131,15 +134,18 @@ const Onboarding = ({ type, color }) => {
     <div className="bg-stone-900 w-screen h-screen">
       <div className="justify-center flex flex-col mx-auto">
         <div className="bg-stone-900">
-          <div className="mt-48 flex flex-col justify-center ">
-            <p className="text-emerald-500 text-center text-4xl">
+          <div className="mt-32 flex flex-col justify-center ">
+            <div className="flex justify-center mx-auto text-9xl">
+              <SiProtocolsdotio/>
+            </div>
+            <p className="text-emerald-500 text-center text-5xl mt-10">
               Smoood Wallet
             </p>
-            <p className="text-white mt-10 text-center">A Mom's wallet</p>
+            <p className="text-white mt-5 text-center">A Mom's wallet</p>
             {isLoading ? (
-              <div className="w-screen">
+              <div className="w-screen flex flex-col justify-center mx-auto mt-10 text-center">
                 <svg
-                  className="w-8 flex justify-center mt-10 mx-auto h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                  className="w-8 h-8 text-gray-200 animate-spin fill-white mx-auto"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -153,17 +159,20 @@ const Onboarding = ({ type, color }) => {
                     fill="currentFill"
                   />
                 </svg>
-                <span class="sr-only">Loading...</span>
+                <p className="text-white mt-5 text-center flex mx-auto justify-center text-2xl">Creating Your Wallet...</p>
               </div>
             ) : (
               <>
                 {" "}
-                {safeSetupComplete ? (
+                {!safeSetupComplete ? (
                   <div className="w-screen flex flex-col">
-                    <Confetti width={screen} height={screen} />
+                    <Confetti/>
                     <div className="w-screen mx-auto">
-                      <div className="mt-20 bg-white border border-white px-10 py-4 mx-10 rounded-xl h-80"></div>
-                      <button className="px-10 py-2 bg-emerald-500 text-white flex justify-center mt-10 mx-auto rounded-xl text-xl">
+                      <div className="mt-10 bg-white border border-white px-7 flex flex-col py-4 mx-10 rounded-xl h-80">
+                        <p className="text-emerald-500 text-4xl text-center mt-10">Congratulations</p>
+                        <p className="text-emerald-500 text-3xl text-center mt-10">Your payment experience is gonna be smoood.</p>
+                      </div>
+                      <button className="px-10 py-2 bg-emerald-500 text-white flex justify-center mt-10 mx-auto rounded-xl text-xl mb-5" onClick={() => router.push("/recoverymethod")}>
                         Continue
                       </button>
                     </div>
@@ -173,16 +182,16 @@ const Onboarding = ({ type, color }) => {
                     {!isLoggedIn ? (
                       <button
                         onClick={login}
-                        className="mt-40 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500 flex justify-center"
+                        className="mt-20 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500 flex justify-center"
                       >
                         Sign In / Sign Up
                       </button>
                     ) : (
                       <button
-                        className="mt-40 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500 flex justify-center"
+                        className="mt-20 text-2xl bg-white mx-auto rounded-2xl px-4 py-3 text-emerald-500 flex justify-center"
                         onClick={createSafeWallet}
                       >
-                        createSafeWallet
+                        Let me in
                       </button>
                     )}
                   </div>

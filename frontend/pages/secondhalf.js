@@ -17,7 +17,7 @@ const Secondhalf = () => {
         id="second-half"
       >
         <div
-          className="bg-blue-500 flex justify-center mx-auto w-screen rounded-xl"
+          className="bg-emerald-500 flex justify-center mx-auto w-screen rounded-xl"
           style={{ height: "6px", width: "100px" }}
         ></div>
         <div className="mt-10 flex flex-col">
@@ -28,7 +28,7 @@ const Secondhalf = () => {
                 getAllTokens("0xB72a04B01BB80DfD6a42ea8E0907B892286113F2")
               }
             >
-              <p className="text-white">Swap</p>
+              <p className="text-white">Receive</p>
             </button>
             <div className="flex flex-col">
               <button
@@ -41,21 +41,21 @@ const Secondhalf = () => {
             </div>
             {/* <a href=`https://global-stg.transak.com?apiKey=0bfa1e08-6fb5-48e7-a337-d008d751c771&walletAddress=${userAddress}&defaultCryptoCurrency=ETH&fiatCurrency=INR`> */}
             <button
-              className="px-7 border border-black rounded-xl h-16"
+              className="border border-black bg-emerald-500 rounded-2xl h-16 px-7"
               onClick={() => router.push("/onramp")} // need to pass the userAddress
             >
-              <p className="text-black">ADD</p>
+              <p className="text-white">ADD</p>
             </button>
             {/* </a> */}
           </div>
           <div className="grid mt-10 grid-flow-col grid-cols-2 mx-3 gap-x-4">
             <button
-              className="border border-black rounded-2xl text-black py-4"
+              className="border border-black rounded-2xl text-white py-4 bg-emerald-500"
               onClick={() => router.push("./history")}
             >
               History
             </button>
-            <button className="border border-black rounded-2xl text-black py-4">
+            <button className="border border-black rounded-2xl text-white py-4 bg-emerald-500">
               Settings
             </button>
           </div>

@@ -37,7 +37,7 @@ const Firsthalf = () => {
         <div className="justify-center flex flex-col mx-auto">
           <div className="bg-stone-900">
             <div className="flex flex-row justify-between mx-5 mt-2">
-              <MdOutlineNotificationsActive className="text-3xl" />
+              <MdOutlineNotificationsActive className="text-3xl text-stone-900" />
               <div className="flex flex-col text-center">
                 <p className="text-white">Archit.eth</p>
                 <p className="text-white mt-1">0x8d7....1D37</p>
@@ -46,7 +46,7 @@ const Firsthalf = () => {
             </div>
             <div className="mt-14 mx-auto flex flex-col justify-center text-center">
               <p className="text-gray-400">Current Balance</p>
-              <p className="text-cyan-500 text-3xl mt-2">$100012</p>
+              <p className="text-emerald-500 text-3xl mt-2">$100012</p>
             </div>
             <div className="mt-10 mx-auto flex flex-col justify-center text-center">
               <p className="text-white">Assets</p>
@@ -57,7 +57,7 @@ const Firsthalf = () => {
                     <p>1.010</p>
                   </div>
                 </div>
-                <div className="bg-gray-700 rounded-xl mx-7 py-3 mt-3">
+                <div className="bg-gray-700 rounded-xl mx-7 py-3 mt-3 mb-20">
                   <div className="flex justify-between mx-3">
                     <p>USDC</p>
                     <p>10000.010</p>

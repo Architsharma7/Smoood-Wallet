@@ -66,6 +66,8 @@ const Finalpayment = () => {
         encodedTxData
       );
       console.log(txResponse);
+
+      storeTxData(txResponse.taskId);
     } catch (error) {
       console.log(error);
     }
@@ -112,9 +114,10 @@ const Finalpayment = () => {
 
   const storeTxData = async (taskId) => {
     // we are storing the taskID , rn , may need to change to txID
+
     const res = await addRecord(
-      safeAddress,
-      taskId,
+      safeAddress.toString(),
+      taskId.toString(),
       payData.amount,
       payData.message,
       payData.tag
@@ -168,7 +171,7 @@ const Finalpayment = () => {
           </div>
           <div className="mt-20 flex justify-center">
             <button
-              onClick={() => inititateTransactionNativeGasless()}
+              onClick={() => storeTxData("x4ed5ea89D8231C4E64F02f0da4E5ffcE4263D9","fe43e775f34acea05e780db19be8c2e53cce4fee43803db73a72455b40fc106",0.5,"for Bus", "Travel")}
               className="text-white text-center bg-emerald-500 px-14 py-3 rounded-xl border text-xl hover:scale-110 duration-300 hover:bg-white hover:border-emerald-500 hover:text-emerald-500"
             >
               Pay
