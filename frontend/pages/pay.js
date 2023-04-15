@@ -16,6 +16,76 @@ const Pay = () => {
     <div className="h-screen w-screen bg-white">
       <div className="flex flex-col h-[75%]">
         <div className="mt-14">
+            <p className="text-black text-center text">Paying to</p>
+          <p className="text-black text-center text-xl mt-1">{`${payData.address.slice(0,5)}..${payData.address.slice(38,42)}`}</p>
+          <p className="text-black text-center mt-28 text-lg">You are paying</p>
+          <input
+            className="bg-slate-50 border flex justify-center mx-auto px-5 py-7 rounded-xl mt-3 text-black text-2xl text-center"
+            type="number"
+            value={payData.amount}
+            onChange={(e) => {
+                setPayData((payData) => ({
+                  ...payData,
+                  amount: e.target.value,
+                }));
+            }}
+          ></input>
+          <input
+            className="mt-10 bg-slate-50 flex justify-center mx-auto px-4 py-3 border rounded-xl text-black text-center"
+            type="text"
+            placeholder="Add message"
+            value={payData.message}
+            onChange={(e) => {
+              setPayData((payData) => ({
+                ...payData,
+                message: e.target.value,
+              }));
+            }}
+          ></input>
+          <input
+            className="mt-10 bg-slate-50 flex justify-center mx-auto px-1 py-1 border rounded-xl text-black text-center"
+            type="text"
+            placeholder="Add tag"
+            onChange={(e) => {
+                setPayData((payData) => ({
+                  ...payData,
+                  tags: e.target.value,
+                }));
+              }}
+          ></input>
+        </div>
+      </div>
+      <div className="flex flex-col h-[25%] border border-slate-400 rounded-t-3xl">
+        <div className="mt-10 flex flex-col justify-center mx-auto text-center">
+          <label className="text-black">
+            Choose currency
+          </label>
+          <select
+          >
+            <option>Please choose a level</option>
+            <option value="basic">like a noob</option>
+            <option value="medium">like an intermediate </option>
+            <option value="high">like an expert</option>
+          </select>
+        </div>
+        <div className="w-full">
+            <div className="mx-5">
+        <button onClick={() => router.push("/finalpayment")} className="mt-10 px-40 py-3 rounded-lg text-white bg-emerald-500 text-2xl">
+            Continue
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Pay;
+
+
+{/* <div className="bg-white w-screen h-screen">
+      <div className="flex flex-col">
+        <div className="mt-14">
           <p className="text-black text-center text-xl">{payData.address}</p>
           <p className="text-black text-center mt-28 text-lg">You are paying</p>
           <input
@@ -65,16 +135,12 @@ const Pay = () => {
             <option value="high">like an expert</option>
           </select>
         </div> */}
-        <div className="w-full">
-          <div className="mx-5">
-            <button className="mt-10 px-10 mx-auto flex justify-center py-3 rounded-lg text-white bg-emerald-500 text-2xl" onClick={() => router.push("/finalpayment")}>
-              Continue
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Pay;
+    //     <div className="w-full">
+    //       <div className="mx-5">
+    //         <button className="mt-10 px-10 mx-auto flex justify-center py-3 rounded-lg text-white bg-emerald-500 text-2xl" onClick={() => router.push("/finalpayment")}>
+    //           Continue
+    //         </button>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div> 

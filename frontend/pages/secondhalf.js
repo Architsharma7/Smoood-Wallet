@@ -35,7 +35,7 @@ const Secondhalf = () => {
                 className="px-6 py-6 rounded-full border border-black flex flex-col"
                 onClick={() => console.log("clicked")}
               >
-                <BsQrCodeScan className="text-black text-6xl" />
+                <BsQrCodeScan className="text-black text-6xl" onClick={() => router.push("/scanner")} />
               </button>
               {/* <p className="text-black text-center text-2xl mt-1">Pay</p> */}
             </div>
