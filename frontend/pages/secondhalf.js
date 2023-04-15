@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/scroll.module.css";
 import { BsQrCodeScan } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { transakRamp } from "../components/transak";
+// import { addRecord } from "../components/firebase";
 
 const Secondhalf = () => {
   const router = useRouter();
