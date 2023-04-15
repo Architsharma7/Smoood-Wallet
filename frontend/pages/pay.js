@@ -1,72 +1,14 @@
 import React, { useEffect } from "react";
-import { ethers } from "ethers";
-import {
-  GelatoRelayAdapter,
-  MetaTransactionOptions,
-} from "@safe-global/relay-kit";
-// import Safe from "@safe-global/safe-core-sdk";
-import {
-  MetaTransactionData,
-  OperationType,
-} from "@safe-global/safe-core-sdk-types";
+
 import { useState } from "react";
 import { useAuth } from "../auth-context/auth";
-
-const GELATO_RELAY_API_KEY = process.env.NEXT_PUBLIC_GELATO_RELAY_API_KEY;
 
 const Pay = () => {
   const { setPayData, payData } = useAuth();
 
-
-//   useEffect(()=>{
-//     console.log(payData)
-//   },[payData])
-
-  //   let [prePayData, setPrePayData] = useState()
-  //   prePayData = payData
-
-  //   const [safeAddress, setSafeAddress] = useState();
-  //   const chainId = 5;
-  //   const options = {
-  //     gasLimit: ethers.BigNumber.from(gasLimit),
-  //     isSponsored: true,
-  //   };
-
-  //   const prepareTransactionData = () => {};
-
-  //   /// Building the tx
-  //   const sendTransaction1Balance = async () => {
-  //     const relayAdapter = new GelatoRelayAdapter(GELATO_RELAY_API_KEY);
-
-  //     // we need to get the encoded tx data
-  //     const relayTransaction = {
-  //       target: targetContractAddress,
-  //       encodedTransaction: encodedTx,
-  //       chainId,
-  //       options,
-  //     };
-  //     const response = await relayAdapter.relayTransaction(relayTransaction);
-
-  //     console.log(
-  //       `Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`
-  //     );
-  //   };
-
-  //   const sendTransactionSyncFee = async () => {
-  //     const relayAdapter = new GelatoRelayAdapter();
-
-  //     // we need to get the encoded tx data
-  //     const relayTransaction = {
-  //       target: targetContractAddress,
-  //       encodedTransaction: encodedTx,
-  //       chainId,
-  //     };
-  //     const response = await relayAdapter.relayTransaction(relayTransaction);
-
-  //     console.log(
-  //       `Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`
-  //     );
-  //   };
+  //   useEffect(()=>{
+  //     console.log(payData)
+  //   },[payData])
   return (
     <div className="h-screen w-screen bg-white">
       <div className="flex flex-col h-[75%]">
@@ -79,11 +21,10 @@ const Pay = () => {
             value={payData.amount}
             // onChange={(e) => setPrePayData({ address: pa, amount: 0, message: "" , tag: "" })}
             onChange={(e) => {
-                setPayData((payData)=>({
-                    ...payData,
-                    amount: e.target.value
-                })
-                )
+              setPayData((payData) => ({
+                ...payData,
+                amount: e.target.value,
+              }));
             }}
           ></input>
           <input
@@ -92,11 +33,10 @@ const Pay = () => {
             placeholder="Add message"
             value={payData.message}
             onChange={(e) => {
-                setPayData((payData)=>({
-                    ...payData,
-                    message: e.target.value
-                })
-                )
+              setPayData((payData) => ({
+                ...payData,
+                message: e.target.value,
+              }));
             }}
           ></input>
           <input
@@ -104,11 +44,10 @@ const Pay = () => {
             type="text"
             placeholder="Add tag"
             onChange={(e) => {
-                setPayData((payData)=>({
-                    ...payData,
-                    tags: e.target.value
-                })
-                )
+              setPayData((payData) => ({
+                ...payData,
+                tags: e.target.value,
+              }));
             }}
           ></input>
         </div>
