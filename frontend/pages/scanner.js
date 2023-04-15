@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import QrScanner from "qr-scanner";
-import {Router } from "next/router";
+import {Router,useRouter } from "next/router";
 import { useAuth } from "../auth-context/auth";
 
 const ScanQR = () => {
@@ -10,7 +10,7 @@ const ScanQR = () => {
     amount: 0,
     message: "",
   });
-  // const router = useRouter();
+  const router = useRouter();
 
   const {setPayData} = useAuth();
 
@@ -34,7 +34,7 @@ const ScanQR = () => {
 
       console.log(finalData);
       setqrCodeData(finalData);
-
+      qrScanner.stop();
       continues(finalData)
     });
     qrScanner.start();
@@ -47,7 +47,8 @@ const ScanQR = () => {
     }
     setPayData(payData)
     console.log(payData)
-    Router.push("/pay")
+    // Router.push("/pay")
+    router.push("/pay")
   };
 
   return (
