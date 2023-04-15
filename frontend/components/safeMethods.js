@@ -17,13 +17,15 @@ const intializeSafeAPI = (signer) => {
 };
 
 export const getUserSafe = async (signer) => {
-  const userAddress = signer.getAddress();
+  const userAddress = await signer.getAddress();
 
-  const safeService = await intializeSafeAPI(signer);
+  const safeService = intializeSafeAPI(signer);
+
+  // console.log(userAddress)
   const safes = await safeService.getSafesByOwner(userAddress);
-  console.log(safes);
+  // console.log(safes);
 
-  const safeAddress = safes[0];
-
+  const safeAddress = safes.safes[0];
+  // console.log(safeAddress)
   return safeAddress;
 };

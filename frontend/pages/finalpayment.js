@@ -7,19 +7,21 @@ import {
   sendTransactionSyncFee,
 } from "../components/safeRelay";
 import { getUserSafe } from "../components/safeMethods";
-import { ethers } from "ethers";
+import { ethers, providers } from "ethers";
 
 const Finalpayment = () => {
-  const { payData, signer, safeAddress, setSafeAddress, currentAddress } =
+  const { payData, signer,provider, safeAddress, setSafeAddress, currentAddress } =
     useAuth();
 
   const getSafeAddress = async () => {
-    const address = await getUserSafe(currentAddress);
-    console.log(address);
+    const address = await getUserSafe(signer);
+    // console.log(address);
     setSafeAddress(address);
   };
 
   useEffect(() => {
+    // console.log(signer, provider)
+    // console.log(currentAddress)
     if (!safeAddress) {
       getSafeAddress();
     }
@@ -37,16 +39,20 @@ const Finalpayment = () => {
         console.log("PayData is not Correct");
         return;
       }
+      console.log(safeAddress)
 
       const safeSDK = await intializeSDK(signer, safeAddress);
       const amount = ethers.utils.parseEther(payData.amount);
 
-      console.log(amount);
+    //   console.log(amount);
+
       const encodedTxData = await prepareSendNativeTransactionData(
         payData.address,
         amount,
         safeSDK
       );
+
+      console.log(encodedTxData)
 
       const txResponse = await sendTransaction1Balance(
         safeAddress,
@@ -69,21 +75,26 @@ const Finalpayment = () => {
         console.log("PayData is not Correct");
         return;
       }
+      console.log(safeAddress)
 
       const safeSDK = await intializeSDK(signer, safeAddress);
       const amount = ethers.utils.parseEther(payData.amount);
 
-      console.log(amount);
+    //   console.log(amount);
+
       const encodedTxData = await prepareSendNativeTransactionData(
         payData.address,
         amount,
         safeSDK
       );
 
+      console.log(encodedTxData)
+
       const txResponse = await sendTransactionSyncFee(
         safeAddress,
         encodedTxData
       );
+
       console.log(txResponse);
     } catch (error) {
       console.log(error);
@@ -129,7 +140,7 @@ const Finalpayment = () => {
             </div>
           </div>
           <div className="mt-20 flex justify-center">
-            <button className="text-white text-center bg-emerald-500 px-14 py-3 rounded-xl border text-xl hover:scale-110 duration-300 hover:bg-white hover:border-emerald-500 hover:text-emerald-500">
+            <button onClick={()=>inititateTransactionNative() } className="text-white text-center bg-emerald-500 px-14 py-3 rounded-xl border text-xl hover:scale-110 duration-300 hover:bg-white hover:border-emerald-500 hover:text-emerald-500">
               Pay
             </button>
           </div>

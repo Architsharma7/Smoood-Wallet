@@ -5,12 +5,18 @@ import { OperationType } from "@safe-global/safe-core-sdk-types";
 import { erc20abi } from "../constants/abi";
 
 const GELATO_RELAY_API_KEY = process.env.NEXT_PUBLIC_GELATO_RELAY_API_KEY;
-
+console.log(GELATO_RELAY_API_KEY)
 const chainId = 5;
 const gasLimit = 100000;
+
 const options = {
   gasLimit: ethers.BigNumber.from(gasLimit),
   isSponsored: true,
+};
+
+const optionsSyncFee = {
+  gasLimit: ethers.BigNumber.from(gasLimit),
+  isSponsored: false,
 };
 
 export const intializeSDK = async (signer, safeAddress) => {
@@ -138,6 +144,7 @@ export const sendTransactionSyncFee = async (targetAddress, encodedTx) => {
     target: targetAddress,
     encodedTransaction: encodedTx,
     chainId,
+    optionsSyncFee
   };
   const response = await relayAdapter.relayTransaction(relayTransaction);
 

@@ -90,7 +90,7 @@ export function AuthProvider({ children }) {
     const eoaAddress = safeAuth.getProvider();
     console.log(eoaAddress);
     if (eoaAddress) {
-      setCurrentUser(eoaAddress);
+      // setCurrentUser(eoaAddress);
 
       const provider = new ethers.providers.Web3Provider(eoaAddress);
       setProvider(provider);
@@ -98,6 +98,11 @@ export function AuthProvider({ children }) {
       const signer = provider.getSigner();
       setSigner(signer);
 
+      const address = await signer.getAddress()
+      console.log(address)
+
+      setCurrentUser(address)
+      
       console.log(provider, signer);
       setAuthorized(true);
 

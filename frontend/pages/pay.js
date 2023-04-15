@@ -10,6 +10,8 @@ const Pay = () => {
   //   useEffect(()=>{
   //     console.log(payData)
   //   },[payData])
+
+  const router = useRouter();
   return (
     <div className="h-screen w-screen bg-white">
       <div className="flex flex-col h-[75%]">

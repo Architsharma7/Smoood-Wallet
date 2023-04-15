@@ -40,8 +40,8 @@ export default function GenerateQR(props) {
     };
 
     var segs = [
-      { data: '0xqibqcinicnoxz34oqb;', mode: 'byte' },
-      { data: '0.5;', mode: 'byte' },
+      { data: '0x62C43323447899acb61C18181e34168903E033Bf;', mode: 'byte' },
+      { data: '0.001;', mode: 'byte' },
       { data: 'for Snacks', mode: 'byte' },
     ]
 
