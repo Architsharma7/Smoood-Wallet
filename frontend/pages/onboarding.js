@@ -164,7 +164,7 @@ const Onboarding = ({ type, color }) => {
             ) : (
               <>
                 {" "}
-                {!safeSetupComplete ? (
+                {safeSetupComplete ? (
                   <div className="w-screen flex flex-col">
                     <Confetti/>
                     <div className="w-screen mx-auto">

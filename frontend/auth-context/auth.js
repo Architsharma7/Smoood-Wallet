@@ -88,28 +88,32 @@ export function AuthProvider({ children }) {
       safeAuth = await intializeAuthKit();
     }
     const eoaAddress = safeAuth.getProvider();
-    console.log(eoaAddress);
-    if (eoaAddress) {
-      // setCurrentUser(eoaAddress);
+    console.log(eoaAddress)
+    // if (eoaAddress) {
+    //   // setCurrentUser(eoaAddress);
 
-      const provider = new ethers.providers.Web3Provider(eoaAddress);
-      setProvider(provider);
+    //   const provider = new ethers.providers.Web3Provider(eoaAddress);
+    //   console.log(provider)
+    //   setProvider(provider);
 
-      const signer = provider.getSigner();
-      setSigner(signer);
+    //   const signer = provider.getSigner();
+    //   console.log(signer)
+    //   setSigner(signer);
 
-      const address = await signer.getAddress()
-      console.log(address)
 
-      setCurrentUser(address)
-      
-      console.log(provider, signer);
-      setAuthorized(true);
 
-      return true;
-    } else {
-      return false;
-    }
+    //   const address = await signer.getAddress()
+    //   console.log(address)
+
+    //   setCurrentUser(address)
+
+    //   console.log(provider, signer);
+    //   setAuthorized(true);
+
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   };
 
   useEffect(() => {

@@ -10,7 +10,7 @@ const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL;
 // intialize the contract Instane
 export const intiateContractInstance = () => {
   const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-  const signer = new ethers.Wallet(RECORDMANAGER_PK, RPC_URL);
+  const signer = new ethers.Wallet(RECORDMANAGER_PK, provider);
 
   const recordContract = new ethers.Contract(
     recoveryModuleContractAddress,
@@ -34,6 +34,7 @@ export const addRecoveryMethod = async (
   q2,
   a2
 ) => {
+
   const tx = await recordContractWithSigner.setRecoveryRecords(
     safeAddress,
     eoaAddress,
