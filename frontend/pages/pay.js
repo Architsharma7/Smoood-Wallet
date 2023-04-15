@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ethers } from "ethers";
 import {
   GelatoRelayAdapter,
@@ -15,76 +15,106 @@ import { useAuth } from "../auth-context/auth";
 const GELATO_RELAY_API_KEY = process.env.NEXT_PUBLIC_GELATO_RELAY_API_KEY;
 
 const Pay = () => {
-  const {payData} = useAuth();
+  const { setPayData, payData } = useAuth();
 
-  console.log(payData);
 
-//   const [safeAddress, setSafeAddress] = useState();
-//   const chainId = 5;
-//   const options = {
-//     gasLimit: ethers.BigNumber.from(gasLimit),
-//     isSponsored: true,
-//   };
+//   useEffect(()=>{
+//     console.log(payData)
+//   },[payData])
 
-//   const prepareTransactionData = () => {};
+  //   let [prePayData, setPrePayData] = useState()
+  //   prePayData = payData
 
-//   /// Building the tx
-//   const sendTransaction1Balance = async () => {
-//     const relayAdapter = new GelatoRelayAdapter(GELATO_RELAY_API_KEY);
+  //   const [safeAddress, setSafeAddress] = useState();
+  //   const chainId = 5;
+  //   const options = {
+  //     gasLimit: ethers.BigNumber.from(gasLimit),
+  //     isSponsored: true,
+  //   };
 
-//     // we need to get the encoded tx data
-//     const relayTransaction = {
-//       target: targetContractAddress,
-//       encodedTransaction: encodedTx,
-//       chainId,
-//       options,
-//     };
-//     const response = await relayAdapter.relayTransaction(relayTransaction);
+  //   const prepareTransactionData = () => {};
 
-//     console.log(
-//       `Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`
-//     );
-//   };
+  //   /// Building the tx
+  //   const sendTransaction1Balance = async () => {
+  //     const relayAdapter = new GelatoRelayAdapter(GELATO_RELAY_API_KEY);
 
-//   const sendTransactionSyncFee = async () => {
-//     const relayAdapter = new GelatoRelayAdapter();
+  //     // we need to get the encoded tx data
+  //     const relayTransaction = {
+  //       target: targetContractAddress,
+  //       encodedTransaction: encodedTx,
+  //       chainId,
+  //       options,
+  //     };
+  //     const response = await relayAdapter.relayTransaction(relayTransaction);
 
-//     // we need to get the encoded tx data
-//     const relayTransaction = {
-//       target: targetContractAddress,
-//       encodedTransaction: encodedTx,
-//       chainId,
-//     };
-//     const response = await relayAdapter.relayTransaction(relayTransaction);
+  //     console.log(
+  //       `Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`
+  //     );
+  //   };
 
-//     console.log(
-//       `Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`
-//     );
-//   };
+  //   const sendTransactionSyncFee = async () => {
+  //     const relayAdapter = new GelatoRelayAdapter();
+
+  //     // we need to get the encoded tx data
+  //     const relayTransaction = {
+  //       target: targetContractAddress,
+  //       encodedTransaction: encodedTx,
+  //       chainId,
+  //     };
+  //     const response = await relayAdapter.relayTransaction(relayTransaction);
+
+  //     console.log(
+  //       `Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`
+  //     );
+  //   };
   return (
     <div className="h-screen w-screen bg-white">
       <div className="flex flex-col h-[75%]">
         <div className="mt-14">
-          <p className="text-black text-center text-xl">0x25836202..63337</p>
+          <p className="text-black text-center text-xl">{payData.address}</p>
           <p className="text-black text-center mt-28 text-lg">You are paying</p>
           <input
-            className="bg-slate-50 border flex justify-center mx-auto px-5 py-7 rounded-xl mt-3 text-black text-2xl"
+            className="bg-slate-50 border flex justify-center mx-auto px-5 py-7 rounded-xl mt-3 text-black text-2xl text-center"
             type="number"
+            value={payData.amount}
+            // onChange={(e) => setPrePayData({ address: pa, amount: 0, message: "" , tag: "" })}
+            onChange={(e) => {
+                setPayData((payData)=>({
+                    ...payData,
+                    amount: e.target.value
+                })
+                )
+            }}
           ></input>
           <input
             className="mt-10 bg-slate-50 flex justify-center mx-auto px-4 py-3 border rounded-xl text-black text-center"
             type="text"
             placeholder="Add message"
+            value={payData.message}
+            onChange={(e) => {
+                setPayData((payData)=>({
+                    ...payData,
+                    message: e.target.value
+                })
+                )
+            }}
           ></input>
           <input
             className="mt-10 bg-slate-50 flex justify-center mx-auto px-1 py-1 border rounded-xl text-black text-center"
             type="text"
             placeholder="Add tag"
+            onChange={(e) => {
+                setPayData((payData)=>({
+                    ...payData,
+                    tags: e.target.value
+                })
+                )
+            }}
           ></input>
         </div>
       </div>
       <div className="flex flex-col h-[25%] border border-slate-400 rounded-t-3xl">
-        <div className="mt-10 flex flex-col justify-center mx-auto text-center">
+        {/* <div className="mt-10 flex flex-col justify-center mx-auto text-center">
           <label className="text-black">Choose currency</label>
           <select>
             <option>Please choose a level</option>
@@ -92,7 +122,7 @@ const Pay = () => {
             <option value="medium">like an intermediate </option>
             <option value="high">like an expert</option>
           </select>
-        </div>
+        </div> */}
         <div className="w-full">
           <div className="mx-5">
             <button className="mt-10 px-40 py-3 rounded-lg text-white bg-emerald-500 text-2xl">
