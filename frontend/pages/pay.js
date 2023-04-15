@@ -11,12 +11,13 @@ import {
 } from "@safe-global/safe-core-sdk-types";
 import { useState } from "react";
 import { useAuth } from "../auth-context/auth";
+import { useRouter } from "next/router";
 
 const GELATO_RELAY_API_KEY = process.env.NEXT_PUBLIC_GELATO_RELAY_API_KEY;
 
 const Pay = () => {
   const { setPayData, payData } = useAuth();
-
+  const router = useRouter()
 
 //   useEffect(()=>{
 //     console.log(payData)
@@ -125,8 +126,8 @@ const Pay = () => {
         </div> */}
         <div className="w-full">
           <div className="mx-5">
-            <button className="mt-10 px-40 py-3 rounded-lg text-white bg-emerald-500 text-2xl">
-              Pay
+            <button className="mt-10 px-10 mx-auto flex justify-center py-3 rounded-lg text-white bg-emerald-500 text-2xl" onClick={() => router.push("/finalpayment")}>
+              Continue
             </button>
           </div>
         </div>
