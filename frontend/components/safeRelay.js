@@ -126,6 +126,8 @@ export const sendTransaction1Balance = async (targetAddress, encodedTx) => {
   console.log(
     `Relay Transaction Task ID: https://relay.gelato.digital/tasks/status/${response.taskId}`
   );
+
+  return response;
 };
 
 export const sendTransactionSyncFee = async (targetAddress, encodedTx) => {

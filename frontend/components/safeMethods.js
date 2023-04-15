@@ -16,7 +16,7 @@ const intializeSafeAPI = (signer) => {
   return safeSAPIService;
 };
 
-const getUserSafe = async (signer) => {
+export const getUserSafe = async (signer) => {
   const userAddress = signer.getAddress();
 
   const safeService = await intializeSafeAPI(signer);

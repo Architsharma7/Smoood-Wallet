@@ -15,13 +15,12 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [safeAuthKit, setSafeAuthKit] = useState();
   const [safeSDK, setSafeSDK] = useState();
   const [safeAddress, setSafeAddress] = useState();
-  const [payData, setPayData] = useState()
+  const [payData, setPayData] = useState();
 
   const [provider, setProvider] = useState();
   const [signer, setSigner] = useState();
@@ -113,6 +112,8 @@ export function AuthProvider({ children }) {
   }, []);
 
   const value = {
+    currentUser,
+    setCurrentUser,
     safeAuthKit,
     intializeAuthKit,
     setProvider,
@@ -124,7 +125,7 @@ export function AuthProvider({ children }) {
     safeAddress,
     setSafeAddress,
     payData,
-    setPayData
+    setPayData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -12,6 +12,7 @@ const Onboarding = ({ type, color }) => {
     safeAuthKit: safeAuth,
     intializeAuthKit,
     currentUser,
+    setCurrentUser,
     provider,
     setProvider,
     signer,
@@ -58,6 +59,9 @@ const Onboarding = ({ type, color }) => {
       setProvider(provider);
       const signer = provider.getSigner();
       setSigner(signer);
+      const eoa = await signer.getAddress();
+      console.log(eoa);
+      setCurrentUser(eoa);
       setIsLoggedIn(true);
       setisLoading(false);
     } catch (error) {
