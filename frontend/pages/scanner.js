@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import QrScanner from "qr-scanner";
-import { Router, useRouter } from "next/router";
+import {Router, useRouter } from "next/router";
 
 const ScanQR = () => {
   const [scanResult, setScanResult] = useState("DONE");
@@ -25,10 +25,10 @@ const ScanQR = () => {
 
   const scanQR = () => {
     const qrScanner = new QrScanner(document.getElementById("v"), (result) => {
-      // console.log("decoded qr code:", result);
+      console.log("decoded qr code:", result);
       setScanResult(result);
       const parsed = result.split(";");
-      // console.log(parsed);
+      console.log(parsed);
 
       const finalData = {
         address: parsed[0],
@@ -36,10 +36,10 @@ const ScanQR = () => {
         message: parsed[2],
       };
 
-      // console.log(finalData);
+      console.log(finalData);
       setqrCodeData(finalData);
 
-      // continues(finalData)
+      continues(finalData)
     });
     qrScanner.start();
   };
@@ -49,8 +49,9 @@ const ScanQR = () => {
       alert("add address");
       return;
     }
-    // router.push("/pay")
+    
     console.log(payData)
+    router.push("/pay")
   };
 
   return (
