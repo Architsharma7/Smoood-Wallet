@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../auth-context/auth";
 import { EthersAdapter } from "@safe-global/protocol-kit";
 import { ethers } from "ethers";
-import { SafeFactory } from "@safe-global/protocol-kit";
+import Safe,{ SafeFactory } from "@safe-global/protocol-kit";
 import SafeApiKit from "@safe-global/api-kit";
 // import { Audio } from "react-loader-spinner";
 import Confetti from "react-confetti";
 import { SiProtocolsdotio } from "react-icons/si";
 import { useRouter } from "next/router";
+import { enableModule, getUserSafe } from "../components/safeMethods";
+import { recoveryModuleContractAddress } from "../constants/contractData";
 
 const Onboarding = ({ type, color }) => {
   const {
@@ -98,6 +100,20 @@ const Onboarding = ({ type, color }) => {
       const owners = [`${await signer.getAddress()}`];
       const threshold = 1;
 
+      const safeAddress =await getUserSafe(signer);
+      console.log(safeAddress)
+      if(safeAddress){
+        const safeSDK = await Safe.create({ethAdapter, safeAddress});
+
+        await enableModule(safeSDK,recoveryModuleContractAddress)
+        setSafeSDK(safeSDK)
+        setSafeAddress(safeAddress)
+        setsafeSetupComplete(true)
+        setisLoading(false)
+
+        return;
+      }
+
       const safeAccountConfig = {
         owners,
         threshold,
@@ -123,6 +139,8 @@ const Onboarding = ({ type, color }) => {
       setSafeSDK(safeSdk);
       setSafeAddress(newSafeAddress);
 
+      enableModule(safeSDK, newSafeAddress);
+
       /// On Continue, direct to the home page
     } catch (error) {
       console.log(error);
@@ -141,7 +159,7 @@ const Onboarding = ({ type, color }) => {
             <p className="text-emerald-500 text-center text-5xl mt-10">
               Smoood Wallet
             </p>
-            <p className="text-white mt-5 text-center">A Mom's wallet</p>
+            <p className="text-white mt-5 text-center text-2xl">A wallet even Grandma uses</p>
             {isLoading ? (
               <div className="w-screen flex flex-col justify-center mx-auto mt-10 text-center">
                 <svg

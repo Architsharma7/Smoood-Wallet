@@ -59,7 +59,7 @@ const Pay = () => {
         <div className="w-full">
             <div className="mx-5">
         <button onClick={() => router.push("/finalpayment")} className="mt-10 px-40 py-3 rounded-lg text-white bg-emerald-500 text-2xl">
-            Continue
+            Pay
           </button>
           </div>
         </div>

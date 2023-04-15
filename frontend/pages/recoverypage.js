@@ -5,6 +5,7 @@ import {
     intiateContractInstance,
     addRecoveryMethod,
     getRecoveryRecord,
+    recoverUserWallet,
   } from "../components/contractMethods";
   import { useAuth } from "../auth-context/auth";
 
@@ -13,8 +14,9 @@ const Recoverypage = () => {
     const router = useRouter();
     const [eoaAddress, setEoaAddress] = useState()
     const [safeAddress, setSafeAddress] = useState()
+    const [newAddress, setNewAddress] = useState()
 
-    // const { currentUser, safeAddress } = useAuth();
+    // const { currentUser, signer } = useAuth();
 
     const recover = async () => {
         try {
@@ -35,7 +37,13 @@ const Recoverypage = () => {
           // check 
           if(record["a1"] === enteredData.a1 && record["q1"] === enteredData.q1 && record["q2"] === enteredData.q2 && record["a2"] === enteredData.a2 ){
             console.log("Match")
-            // recover wallet     
+            // recover wallet
+            if(!newAddress){
+                console.log("Add new Address")
+                return
+            }
+            recoverUserWallet(recordContractWithSigner,safeAddress,newAddress)
+            
           }else {
             console.log("Not Found")
           }
@@ -73,6 +81,12 @@ const Recoverypage = () => {
             <p className="text-black text-xl">What's your safe address?</p>
             <input
             onChange={(e)=>{setSafeAddress(e.target.value)}}
+            className="px-4 py-2 text-black bg-white mt-3 rounded-xl border border-black"></input>
+        </div>
+        <div  className="mt-10 flex flex-col">
+            <p className="text-black text-xl">What's your new address?</p>
+            <input
+            onChange={(e)=>{setNewAddress(e.target.value)}}
             className="px-4 py-2 text-black bg-white mt-3 rounded-xl border border-black"></input>
         </div>
         <div  className="mt-10 flex flex-col">
