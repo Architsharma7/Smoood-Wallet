@@ -3,6 +3,7 @@ import styles from "../styles/scroll.module.css";
 import { BsQrCodeScan } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { transakRamp } from "../components/transak";
+// import { getAllTokens } from "../components/airstackMethods";
 // import { addRecord } from "../components/firebase";
 
 const Secondhalf = () => {
@@ -21,7 +22,12 @@ const Secondhalf = () => {
         ></div>
         <div className="mt-10 flex flex-col">
           <div className="flex justify-between mx-3 align-middle items-center">
-            <button className="border border-black bg-emerald-500 rounded-2xl h-16 px-7">
+            <button
+              className="border border-black bg-emerald-500 rounded-2xl h-16 px-7"
+              onClick={() =>
+                getAllTokens("0xB72a04B01BB80DfD6a42ea8E0907B892286113F2")
+              }
+            >
               <p className="text-white">Swap</p>
             </button>
             <div className="flex flex-col">

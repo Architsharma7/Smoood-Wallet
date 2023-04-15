@@ -16,6 +16,10 @@ const Onboarding = ({ type, color }) => {
     setProvider,
     signer,
     setSigner,
+    safeSDK,
+    setSafeSDK,
+    safeAddress,
+    setSafeAddress,
   } = useAuth();
 
   useEffect(() => {
@@ -92,33 +96,31 @@ const Onboarding = ({ type, color }) => {
         threshold,
       };
       console.log(safeAccountConfig);
+      // / Will it have gas fees to deploy this safe tx
+      const safeSdk = await safeFactory.deploySafe({ safeAccountConfig });
 
-      const newSafeAddress = "0x2c4ed5ea89D8231C4E64F02f0da4E5ffcE4263D9";
+      console.log("Creating and deploying the new safe");
+
+      // const newSafeAddress = "0x2c4ed5ea89D8231C4E64F02f0da4E5ffcE4263D9";
+
+      // / wait for the deployement to be completed
+      const newSafeAddress = safeSdk.getAddress();
+
+      console.log(newSafeAddress);
 
       if (newSafeAddress) {
         setsafeSetupComplete(true);
         setisLoading(false);
       }
+
+      setSafeSDK(safeSdk);
+      setSafeAddress(newSafeAddress);
+
+      /// On Continue, direct to the home page
     } catch (error) {
       console.log(error);
       setisLoading(false);
     }
-
-    // // / Will it have gas fees to deploy this safe tx
-    // const safeSdk = await safeFactory.deploySafe({ safeAccountConfig });
-
-    // console.log("Creating and deploying the new safe");
-
-    // // / wait for the deployement to be completed
-    // const newSafeAddress = safeSdk.getAddress();
-
-    // console.log(newSafeAddress);
-
-    /// Also check about storing the gnosisSafe address somewhere
-    // const safes = await safeService.getSafesByOwner(
-    //   "0x123b7aAdA4f1f7C54108Bd250030AF21C7587109"
-    // );
-    // console.log(safes);
   };
 
   return (
