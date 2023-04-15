@@ -8,10 +8,17 @@ import {
 } from "../components/safeRelay";
 import { getUserSafe } from "../components/safeMethods";
 import { ethers, providers } from "ethers";
+import { addRecord } from "../components/firebaseMethods";
 
 const Finalpayment = () => {
-  const { payData, signer,provider, safeAddress, setSafeAddress, currentAddress } =
-    useAuth();
+  const {
+    payData,
+    signer,
+    provider,
+    safeAddress,
+    setSafeAddress,
+    currentAddress,
+  } = useAuth();
 
   const getSafeAddress = async () => {
     const address = await getUserSafe(signer);
@@ -39,12 +46,12 @@ const Finalpayment = () => {
         console.log("PayData is not Correct");
         return;
       }
-      console.log(safeAddress)
+      console.log(safeAddress);
 
       const safeSDK = await intializeSDK(signer, safeAddress);
       const amount = ethers.utils.parseEther(payData.amount);
 
-    //   console.log(amount);
+      //   console.log(amount);
 
       const encodedTxData = await prepareSendNativeTransactionData(
         payData.address,
@@ -52,7 +59,7 @@ const Finalpayment = () => {
         safeSDK
       );
 
-      console.log(encodedTxData)
+      console.log(encodedTxData);
 
       const txResponse = await sendTransaction1Balance(
         safeAddress,
@@ -75,12 +82,12 @@ const Finalpayment = () => {
         console.log("PayData is not Correct");
         return;
       }
-      console.log(safeAddress)
+      console.log(safeAddress);
 
       const safeSDK = await intializeSDK(signer, safeAddress);
       const amount = ethers.utils.parseEther(payData.amount);
 
-    //   console.log(amount);
+      //   console.log(amount);
 
       const encodedTxData = await prepareSendNativeTransactionData(
         payData.address,
@@ -88,7 +95,7 @@ const Finalpayment = () => {
         safeSDK
       );
 
-      console.log(encodedTxData)
+      console.log(encodedTxData);
 
       const txResponse = await sendTransactionSyncFee(
         safeAddress,
@@ -96,12 +103,25 @@ const Finalpayment = () => {
       );
 
       console.log(txResponse);
+
+      storeTxData(txResponse.taskId);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const storeTxData = () => {};
+  const storeTxData = async (taskId) => {
+    // we are storing the taskID , rn , may need to change to txID
+    const res = await addRecord(
+      safeAddress,
+      taskId,
+      payData.amount,
+      payData.message,
+      payData.tag
+    );
+
+    console.log(res);
+  };
 
   return (
     // <div className="w-full h-full bg-white">
@@ -147,7 +167,12 @@ const Finalpayment = () => {
             </div> 
           </div>
           <div className="mt-20 flex justify-center">
-            <button className="text-white text-center bg-emerald-500 px-14 py-3 rounded-xl border text-xl hover:scale-110 duration-300 hover:bg-white hover:border-emerald-500 hover:text-emerald-500">Pay</button>
+            <button
+              onClick={() => inititateTransactionNativeGasless()}
+              className="text-white text-center bg-emerald-500 px-14 py-3 rounded-xl border text-xl hover:scale-110 duration-300 hover:bg-white hover:border-emerald-500 hover:text-emerald-500"
+            >
+              Pay
+            </button>
           </div>
         </div>
       </div> 
@@ -157,49 +182,3 @@ const Finalpayment = () => {
 };
 
 export default Finalpayment;
-
-
-
-// <div className="w-screen bg-white h-screen">
-//       <div className="flex flex-col mx-auto justify-center">
-//         <div className="mt-20 mx-3">
-//           <div className="bg-emerald-500 px-10 py-4 rounded-xl">
-//             <div className="flex flex-col text-center mt-5">
-//               <p className="text-white text-xl">Paying to</p>
-//               <p className="text-black text-2xl mt-2">{payData.address}</p>
-//             </div>
-//             <div className="flex flex-col text-center mt-10">
-//               <p className="text-white text-xl">Amount</p>
-//               <p className="text-black text-2xl mt-2 ">${payData.amount}</p>
-//             </div>
-//             <div className="flex flex-col text-center mt-10">
-//               <p className="text-white text-xl">Fees</p>
-//               <p className="text-black text-2xl mt-2">$1</p>
-//             </div>
-//             <div className="flex flex-col text-center mt-10">
-//               <p className="text-white text-xl">Total Amount</p>
-//               <p className="text-black text-4xl mt-2 font-semibold">$1.5</p>
-//             </div>
-
-//             <div className="mt-10 flex justify-center mx-auto mb-5">
-//               <div className="inline-flex rounded-md shadow-sm" role="group">
-//                 <button className="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-white rounded-l-lg hover:scale-105 duration-300 hover:bg-white hover:text-black">
-//                   No fees
-//                 </button>
-//                 <button className="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border-t border-b border-white hover:scale-105 duration-300 hover:bg-white hover:text-black">
-//                   Low fees
-//                 </button>
-//                 <button className="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-white rounded-r-lg hover:scale-105 duration-300 hover:bg-white hover:text-black">
-//                   General
-//                 </button>
-//               </div>
-//             </div>
-//           </div>
-//           <div className="mt-20 flex justify-center">
-//             <button onClick={()=>inititateTransactionNative() } className="text-white text-center bg-emerald-500 px-14 py-3 rounded-xl border text-xl hover:scale-110 duration-300 hover:bg-white hover:border-emerald-500 hover:text-emerald-500">
-//               Pay
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
