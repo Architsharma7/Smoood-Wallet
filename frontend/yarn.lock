@@ -995,6 +995,14 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.9.0.tgz#9340bce56560a8bdba1d25d6281d4bfc397450dc"
   integrity sha512-BpiZLBWdLFw+qFel9p3Zs1jD6QmH7Ii4aTDu6+vx8ShdidChZUXqDhYJly4ZjSgQh54miXbBgBrk0S+jTIh/Qg==
 
+"@gelatonetwork/relay-sdk@^3.1.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@gelatonetwork/relay-sdk/-/relay-sdk-3.5.0.tgz#f8592b17492a582421dbeea39ec03180f82d20f3"
+  integrity sha512-oj4rFH09yzFT4wnYCv7V3bZCIVhpuKbnK5jv0fgzclxTbbA6UEWZErn3QiD13yspiIkKafSgMWT0G8z41CINYg==
+  dependencies:
+    axios "0.24.0"
+    ethers "5.7.2"
+
 "@grpc/grpc-js@~1.7.0":
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.7.3.tgz#f2ea79f65e31622d7f86d4b4c9ae38f13ccab99a"
@@ -1312,6 +1320,16 @@
     web3 "^1.8.1"
     web3-core "^1.8.1"
     web3-utils "^1.8.1"
+
+"@safe-global/relay-kit@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@safe-global/relay-kit/-/relay-kit-0.1.1.tgz#8094826c6fd539fcb2c5d868768d0463eca6938e"
+  integrity sha512-S106oNcV7aO6/E86iZxrv+4cFPYcNZQOROwW7f+ypA5F9bWRVkBvpuLc/r82wnezxV8neaK78OROIQKqu2TSww==
+  dependencies:
+    "@gelatonetwork/relay-sdk" "^3.1.0"
+    "@safe-global/protocol-kit" "^0.1.1"
+    "@safe-global/safe-core-sdk-types" "^1.10.1"
+    ethers "^5.7.2"
 
 "@safe-global/safe-core-sdk-types@^1.10.1", "@safe-global/safe-core-sdk-types@^1.9.0":
   version "1.10.1"
@@ -2532,6 +2550,13 @@ axe-core@^4.6.2:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.6.3.tgz#fc0db6fdb65cc7a80ccf85286d91d64ababa3ece"
   integrity sha512-/BQzOX780JhsxDnPpH4ZiyrJAzcd8AfzFPkv+89veFSr1rcMjuq2JDCwypKaPeB6ljHp9KjXhPpjgCvQlWYuqg==
+
+axios@0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
+  integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
+  dependencies:
+    follow-redirects "^1.14.4"
 
 axobject-query@^3.1.1:
   version "3.1.1"
@@ -4133,6 +4158,11 @@ flatted@^3.1.0:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
+
+follow-redirects@^1.14.4:
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
+  integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
 
 for-each@^0.3.3:
   version "0.3.3"
