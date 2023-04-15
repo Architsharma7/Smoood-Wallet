@@ -51,7 +51,7 @@ export function AuthProvider({ children }) {
   }, [router, currentUser, safeAuthKit]);
 
   const intializeAuthKit = async () => {
-    console.log(process.env.NEXT_PUBLIC_RPC_URL);
+    // console.log(process.env.NEXT_PUBLIC_RPC_URL);
     const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
       chainId: "0x5",
       authProviderConfig: {
