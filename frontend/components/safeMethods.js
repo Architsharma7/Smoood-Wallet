@@ -29,3 +29,12 @@ export const getUserSafe = async (signer) => {
   // console.log(safeAddress)
   return safeAddress;
 };
+
+export const enableModule = async (safeSdk, moduleAddress) => {
+  const safeTransaction = await safeSdk.createEnableModuleTx(moduleAddress);
+  const txResponse = await safeSdk.executeTransaction(safeTransaction);
+  await txResponse.transactionResponse?.wait();
+
+  console.log(txResponse);
+  return txResponse;
+};
