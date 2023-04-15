@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { SiProtocolsdotio } from "react-icons/si";
 import { useState } from "react";
@@ -15,7 +15,7 @@ const Firsthalf = () => {
 
   const router = useRouter();
 
-  const { safeAuthKit: safeAuth,setProvider,setSigner} = useAuth();
+  const { safeAuthKit: safeAuth, setProvider, setSigner } = useAuth();
 
   const logout = async () => {
     console.log(safeAuth);
@@ -28,7 +28,7 @@ const Firsthalf = () => {
 
     setProvider(null);
     // safeAuthSigninResponse(null);
-    router.push("/onboarding")
+    router.push("/onboarding");
   };
 
   return (
@@ -42,7 +42,7 @@ const Firsthalf = () => {
                 <p className="text-white">Archit.eth</p>
                 <p className="text-white mt-1">0x8d7....1D37</p>
               </div>
-              <SiProtocolsdotio className="text-3xl" onClick={logout}/>
+              <SiProtocolsdotio className="text-3xl" onClick={logout} />
             </div>
             <div className="mt-14 mx-auto flex flex-col justify-center text-center">
               <p className="text-gray-400">Current Balance</p>
