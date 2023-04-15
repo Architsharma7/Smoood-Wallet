@@ -18,6 +18,8 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [safeAuthKit, setSafeAuthKit] = useState();
+  const [safeSDK, setSafeSDK] = useState();
+  const [safeAddress, setSafeAddress] = useState();
 
   const [provider, setProvider] = useState();
   const [signer, setSigner] = useState();
@@ -51,7 +53,7 @@ export function AuthProvider({ children }) {
   }, [router, currentUser, safeAuthKit]);
 
   const intializeAuthKit = async () => {
-    console.log(process.env.NEXT_PUBLIC_RPC_URL);
+    // console.log(process.env.NEXT_PUBLIC_RPC_URL);
     const safeAuthKit = await SafeAuthKit.init(SafeAuthProviderType.Web3Auth, {
       chainId: "0x5",
       authProviderConfig: {
@@ -115,6 +117,8 @@ export function AuthProvider({ children }) {
     provider,
     signer,
     setSigner,
+    safeSDK,
+    setSafeSDK,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

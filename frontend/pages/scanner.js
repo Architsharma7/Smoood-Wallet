@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import QrScanner from "qr-scanner";
-import { Router } from "next/router";
+import { Router, useRouter } from "next/router";
 
 const ScanQR = () => {
   const [scanResult, setScanResult] = useState("DONE");
-  const [qrCodeData, setqrCodeData] = useState([])
+  const [qrCodeData, setqrCodeData] = useState({
+    address: "",
+    amount: 0,
+    message: "",
+  });
+  const router = useRouter();
 
   useEffect(() => {
     scanQR();
@@ -20,10 +25,10 @@ const ScanQR = () => {
 
   const scanQR = () => {
     const qrScanner = new QrScanner(document.getElementById("v"), (result) => {
-      console.log("decoded qr code:", result);
+      // console.log("decoded qr code:", result);
       setScanResult(result);
       const parsed = result.split(";");
-      console.log(parsed);
+      // console.log(parsed);
 
       const finalData = {
         address: parsed[0],
@@ -31,11 +36,21 @@ const ScanQR = () => {
         message: parsed[2],
       };
 
-      console.log(finalData);
+      // console.log(finalData);
       setqrCodeData(finalData);
 
+      // continues(finalData)
     });
     qrScanner.start();
+  };
+
+  const continues = (payData) => {
+    if (!payData.address) {
+      alert("add address");
+      return;
+    }
+    // router.push("/pay")
+    console.log(payData)
   };
 
   return (
@@ -50,8 +65,15 @@ const ScanQR = () => {
           <hr className="w-full bg-gray-400" />
         </div>
         <div className="mt-3 flex flex-col  mx-5 ">
-          <input type="text" className="bg-slate-200 mt-2 px-2 py-1 rounded-lg text-black border border-black text-2xl" placeholder="Enter Address of Receiver"></input>
-          <button className="mt-4 px-3 py-2 rounded-lg text-white bg-emerald-500 text-xl">
+          <input
+            type="text"
+            onChange={(e) =>
+              setqrCodeData({ address: e.target.value, amount: 0, message: "" })
+            }
+            className="bg-slate-200 mt-2 px-2 py-1 rounded-lg text-black border border-black text-2xl"
+            placeholder="Enter Address of Receiver"
+          ></input>
+          <button className="mt-4 px-3 py-2 rounded-lg text-white bg-emerald-500 text-xl" onClick={()=>continues(qrCodeData)}>
             Continue
           </button>
         </div>

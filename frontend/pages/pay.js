@@ -1,6 +1,7 @@
 import React from "react";
 
 const Pay = () => {
+  /// Building the tx
   return (
     <div className="h-screen w-screen bg-white">
       <div className="flex flex-col h-[75%]">
@@ -25,11 +26,8 @@ const Pay = () => {
       </div>
       <div className="flex flex-col h-[25%] border border-slate-400 rounded-t-3xl">
         <div className="mt-10 flex flex-col justify-center mx-auto text-center">
-          <label className="text-black">
-            Choose currency
-          </label>
-          <select
-          >
+          <label className="text-black">Choose currency</label>
+          <select>
             <option>Please choose a level</option>
             <option value="basic">like a noob</option>
             <option value="medium">like an intermediate </option>
@@ -37,10 +35,10 @@ const Pay = () => {
           </select>
         </div>
         <div className="w-full">
-            <div className="mx-5">
-        <button className="mt-10 px-40 py-3 rounded-lg text-white bg-emerald-500 text-2xl">
-            Pay
-          </button>
+          <div className="mx-5">
+            <button className="mt-10 px-40 py-3 rounded-lg text-white bg-emerald-500 text-2xl">
+              Pay
+            </button>
           </div>
         </div>
       </div>

@@ -10,10 +10,6 @@
   },
   "dependencies": {
     "@1inch/fusion-sdk": "^0.1.1",
-    "@apollo/client": "^3.7.12",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@polybase/client": "^0.3.39",
     "@safe-global/api-kit": "^1.0.1",
     "@safe-global/auth-kit": "0.1.0-alpha.2",
     "@safe-global/protocol-kit": "^0.1.1",
@@ -34,8 +30,10 @@
     "qr-scanner": "^1.4.2",
     "qrcode": "^1.5.1",
     "react": "18.2.0",
+    "react-confetti": "^6.1.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "react-loader-spinner": "^5.3.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
