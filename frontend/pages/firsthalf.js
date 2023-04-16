@@ -15,7 +15,13 @@ const Firsthalf = () => {
 
   const router = useRouter();
 
-  const { safeAuthKit: safeAuth, setProvider, setSigner } = useAuth();
+  const {
+    safeAuthKit: safeAuth,
+    setProvider,
+    setSigner,
+    safeAddress,
+    currentUser,
+  } = useAuth();
 
   const logout = async () => {
     console.log(safeAuth);
@@ -40,7 +46,9 @@ const Firsthalf = () => {
               <MdOutlineNotificationsActive className="text-3xl text-stone-900" />
               <div className="flex flex-col text-center">
                 <p className="text-white">Archit.eth</p>
-                <p className="text-white mt-1">0x8d7....1D37</p>
+                <p className="text-white mt-1">
+                  {safeAddress ? safeAddress : "0x8d7....1D37s"}
+                </p>
               </div>
               <SiProtocolsdotio className="text-3xl" onClick={logout} />
             </div>

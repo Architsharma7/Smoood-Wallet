@@ -34,7 +34,6 @@ export const addRecoveryMethod = async (
   q2,
   a2
 ) => {
-
   const tx = await recordContractWithSigner.setRecoveryRecords(
     safeAddress,
     eoaAddress,
@@ -49,6 +48,8 @@ export const addRecoveryMethod = async (
   console.log(tx);
   console.log("Recovery Method added in the Wallet");
 };
+
+/// Allow the Module to be added first
 
 /// initiate the RecoveryMethod
 export const recoverUserWallet = async (
